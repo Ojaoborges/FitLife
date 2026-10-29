@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#111827">
+  <title>FitLife — Saúde e Treinos</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- LOGIN E CADASTRO -->
+  <section id="authScreen" class="auth-screen">
+    <div class="auth-card">
+      <div class="brand-logo">✦ FitLife</div>
+      <h1 id="authTitle">Bem-vindo!</h1>
+      <p id="authDescription">Entre para acessar seus treinos personalizados.</p>
+
+      <form id="authForm">
+        <div id="nameField" class="field hidden">
+          <label for="authName">Nome completo</label>
+          <input id="authName" type="text" autocomplete="name">
+        </div>
+
+        <div class="field">
+          <label for="authEmail">E-mail</label>
+          <input id="authEmail" type="email" required autocomplete="email">
+        </div>
+
+        <div class="field">
+          <label for="authPassword">Senha</label>
+          <input id="authPassword" type="password" minlength="6"
+                 required autocomplete="current-password">
+        </div>
+
+        <button class="primary-btn full" type="submit" id="authSubmit">
+          Entrar
+        </button>
+      </form>
+
+      <p class="auth-switch">
+        <span id="switchText">Ainda não tem uma conta?</span>
+        <button id="switchAuth" class="text-btn" type="button">Cadastre-se</button>
+      </p>
+      <p id="authMessage" class="message" aria-live="polite"></p>
+      <small>Versão demonstrativa: os dados ficam salvos neste navegador.</small>
+    </div>
+  </section>
+
+  <!-- QUESTIONÁRIO INICIAL -->
+  <section id="questionnaireScreen" class="auth-screen hidden">
+    <div class="questionnaire-card">
+      <div class="brand-logo">✦ FitLife</div>
+      <h1>Vamos personalizar seu treino!</h1>
+      <p>Responda às perguntas para montarmos uma sugestão inicial.</p>
+
+      <form id="profileForm">
+        <div class="form-grid">
+          <div class="field">
+            <label for="personName">Nome</label>
+            <input id="personName" type="text" required>
+          </div>
+
+          <div class="field">
+            <label for="personAge">Idade</label>
+            <input id="personAge" type="number" min="16" max="100" required>
+          </div>
+
+          <div class="field">
+            <label for="personWeight">Peso (kg)</label>
+            <input id="personWeight" type="number" min="30" max="350"
+                   step="0.1" required>
+          </div>
+
+          <div class="field">
+            <label for="personHeight">Altura (cm)</label>
+            <input id="personHeight" type="number" min="100" max="250"
+                   required>
+          </div>
+
+          <div class="field">
+            <label for="experience">Experiência</label>
+            <select id="experience" required>
+              <option value="iniciante">Iniciante</option>
+              <option value="intermediario">Intermediário</option>
+              <option value="avancado">Avançado</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="goal">Objetivo principal</label>
+            <select id="goal" required>
+              <option value="emagrecimento">Emagrecimento</option>
+              <option value="hipertrofia">Ganho de massa muscular</option>
+              <option value="condicionamento">Condicionamento físico</option>
+              <option value="saude">Saúde e bem-estar</option>
+              <option value="forca">Aumentar força</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="place">Onde pretende treinar?</label>
+            <select id="place" required>
+              <option value="academia">Academia</option>
+              <option value="casa">Em casa</option>
+              <option value="ar_livre">Ao ar livre</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="days">Dias disponíveis por semana</label>
+            <select id="days" required>
+              <option value="2">2 dias</option>
+              <option value="3">3 dias</option>
+              <option value="4">4 dias</option>
+              <option value="5">5 dias</option>
+              <option value="6">6 dias</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="equipment">Equipamentos disponíveis (opcional)</label>
+          <input id="equipment" type="text"
+                 placeholder="Ex.: halteres, elásticos, bicicleta">
+        </div>
+
+        <fieldset class="health-field">
+          <legend>Você possui algum problema de saúde ou limitação?</legend>
+          <p class="muted">Marque tudo o que se aplica.</p>
+
+          <label class="check-option">
+            <input type="checkbox" name="health" value="cardiaco">
+            Problemas cardíacos ou pressão alta
+          </label>
+          <label class="check-option">
+            <input type="checkbox" name="health" value="respiratorio">
+            Problemas respiratórios
+          </label>
+          <label class="check-option">
+            <input type="checkbox" name="health" value="articular">
+            Lesões ou dores nas articulações ou coluna
+          </label>
+          <label class="check-option">
+            <input type="checkbox" name="health" value="metabolico">
+            Diabetes ou outra condição metabólica
+          </label>
+          <label class="check-option">
+            <input type="checkbox" name="health" value="outro">
+            Outra condição ou limitação
+          </label>
+          <label class="check-option">
+            <input type="checkbox" name="health" value="nenhum" id="noHealth">
+            Nenhuma das opções
+          </label>
+        </fieldset>
+
+        <label class="check-option consent-option">
+          <input type="checkbox" id="healthConsent" required>
+          Entendo que as sugestões não substituem avaliação médica
+          ou orientação de um profissional de educação física.
+        </label>
+
+        <button class="primary-btn full" type="submit">
+          Salvar perfil e gerar treino
+        </button>
+      </form>
+      <p id="profileMessage" class="message" aria-live="polite"></p>
+    </div>
+  </section>
+
+  <!-- APLICATIVO -->
+  <div id="appScreen" class="app hidden">
+    <aside class="sidebar">
+      <a class="brand" href="#" data-page="inicio">✦ FitLife</a>
+      <p class="menu-title">MENU PRINCIPAL</p>
+
+      <nav>
+        <button class="nav-link active" data-page="inicio">⌂ Visão geral</button>
+        <button class="nav-link" data-page="treinos">🏋️ Meus treinos</button>
+        <button class="nav-link" data-page="agua">💧 Consumo de água</button>
+        <button class="nav-link" data-page="calorias">🔥 Atividades</button>
+        <button class="nav-link" data-page="perfil">👤 Meu perfil</button>
+      </nav>
+
+      <div class="sidebar-tip">
+        <strong>💡 Dica do dia</strong>
+        <p>Pequenos hábitos, repetidos com frequência, podem fazer diferença.</p>
+      </div>
+
+      <button id="logoutButton" class="logout-button">Sair da conta</button>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">SEU ESPAÇO DE BEM-ESTAR</p>
+          <h1 id="pageTitle">Visão geral</h1>
+        </div>
+        <div class="user-chip">
+          <div class="avatar" id="avatar">U</div>
+          <strong id="headerName">Usuário</strong>
+        </div>
+      </header>
+
+      <section class="page active" id="page-inicio">
+        <div class="hero">
+          <div>
+            <p class="eyebrow light">VAMOS CUIDAR DE VOCÊ</p>
+            <h2>Um passo de cada vez. 💪</h2>
+            <p>Organize seus treinos, água e atividades em um só lugar.</p>
+            <button class="primary-btn" data-go="treinos">Ver meus treinos →</button>
+          </div>
+          <div class="hero-emoji">🏃</div>
+        </div>
+
+        <div class="stats-grid">
+          <article class="stat-card">
+            <span>Água consumida 💧</span>
+            <strong id="dashWater">0 ml</strong>
+            <div class="progress"><div id="dashWaterBar" class="fill"></div></div>
+            <small id="dashWaterSub">Meta diária</small>
+          </article>
+
+          <article class="stat-card">
+            <span>Calorias estimadas 🔥</span>
+            <strong id="dashCalories">0 kcal</strong>
+            <small>Gasto registrado hoje</small>
+          </article>
+
+          <article class="stat-card">
+            <span>Tempo ativo ⏱️</span>
+            <strong id="dashMinutes">0 min</strong>
+            <small>Tempo de atividade registrado hoje</small>
+          </article>
+        </div>
+
+        <div class="panel">
+          <div class="panel-heading">
+            <div>
+              <h2>Seu treino sugerido</h2>
+              <p id="dashboardGoal">Baseado no seu perfil</p>
+            </div>
+            <button class="text-btn" data-go="treinos">Ver treino →</button>
+          </div>
+          <div id="dashboardWorkout"></div>
+        </div>
+      </section>
+
+      <section class="page" id="page-treinos">
+        <div class="page-intro">
+          <h2>Meus treinos</h2>
+          <p>Uma sugestão inicial baseada nas suas respostas.</p>
+        </div>
+        <div id="workoutResult" class="panel"></div>
+        <button id="editProfileFromWorkout" class="secondary-btn">
+          Atualizar questionário
+        </button>
+      </section>
+
+      <section class="page" id="page-agua">
+        <div class="page-intro">
+          <h2>Consumo de água</h2>
+          <p>Registre a água que você bebe ao longo do dia.</p>
+        </div>
+        <div class="panel">
+          <h2>Hidratação de hoje</h2>
+          <div class="water-summary">
+            <strong id="waterTotal">0 ml</strong>
+            <span id="waterGoal">Meta de referência: 2000 ml</span>
+          </div>
+          <div class="progress tall"><div id="waterBar" class="fill"></div></div>
+          <div class="button-row">
+            <button class="primary-btn" data-water="250">+ 250 ml</button>
+            <button class="secondary-btn" data-water="500">+ 500 ml</button>
+            <button class="secondary-btn" data-water="1000">+ 1 litro</button>
+          </div>
+          <p class="muted">A necessidade de água varia conforme a pessoa, o clima,
+            a alimentação e a atividade física.</p>
+        </div>
+      </section>
+
+      <section class="page" id="page-calorias">
+        <div class="page-intro">
+          <h2>Atividades e calorias</h2>
+          <p>Registre exercícios para acompanhar o tempo ativo e o gasto estimado.</p>
+        </div>
+        <div class="panel">
+          <form id="activityForm">
+            <div class="form-grid">
+              <div class="field">
+                <label for="activityType">Atividade</label>
+                <select id="activityType" required>
+                  <option value="caminhada">Caminhada</option>
+                  <option value="corrida">Corrida</option>
+                  <option value="musculacao">Musculação</option>
+                  <option value="bicicleta">Bicicleta</option>
+                  <option value="funcional">Treino funcional</option>
+                  <option value="alongamento">Alongamento</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="activityHours">Horas</label>
+                <input id="activityHours" type="number" min="0" max="12"
+                       value="0" required>
+              </div>
+              <div class="field">
+                <label for="activityMinutes">Minutos adicionais</label>
+                <input id="activityMinutes" type="number" min="0" max="59"
+                       value="30" required>
+              </div>
+            </div>
+            <button class="primary-btn" type="submit">Registrar atividade</button>
+          </form>
+          <p class="muted">As calorias são apenas estimativas e podem variar bastante.</p>
+        </div>
+        <div class="panel">
+          <h2>Atividades de hoje</h2>
+          <div id="activityList"></div>
+        </div>
+      </section>
+
+      <section class="page" id="page-perfil">
+        <div class="page-intro">
+          <h2>Meu perfil</h2>
+          <p>Confira suas informações e atualize suas respostas.</p>
+        </div>
+        <div id="profileSummary" class="panel"></div>
+        <button id="editProfileButton" class="primary-btn">
+          Editar questionário
+        </button>
+      </section>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
